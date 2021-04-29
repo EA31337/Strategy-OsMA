@@ -51,7 +51,7 @@ struct Stg_OsMA_Params : StgParams {
 
   // Struct constructors.
   Stg_OsMA_Params(OsMAParams &_iparams, StgParams &_sparams)
-      : iparams(indi_osma_defaults, _iparams.tf), sparams(stg_osma_defaults) {
+      : iparams(indi_osma_defaults, _iparams.tf.GetTf()), sparams(stg_osma_defaults) {
     iparams = _iparams;
     sparams = _sparams;
   }
