@@ -8,7 +8,7 @@ INPUT string __OsMA_Parameters__ = "-- OsMA strategy params --";  // >>> OsMA <<
 INPUT float OsMA_LotSize = 0;                                     // Lot size
 INPUT int OsMA_SignalOpenMethod = 2;                              // Signal open method (-127-127)
 INPUT float OsMA_SignalOpenLevel = 0.0f;                          // Signal open level
-INPUT int OsMA_SignalOpenFilterMethod = 32;                        // Signal open filter method
+INPUT int OsMA_SignalOpenFilterMethod = 32;                       // Signal open filter method
 INPUT int OsMA_SignalOpenBoostMethod = 0;                         // Signal open boost method
 INPUT int OsMA_SignalCloseMethod = 2;                             // Signal close method (-127-127)
 INPUT float OsMA_SignalCloseLevel = 0.0f;                         // Signal close level
@@ -99,24 +99,21 @@ class Stg_OsMA : public Strategy {
     bool _is_valid = _indi[_shift].IsValid() && _indi[_shift + 1].IsValid() && _indi[_shift + 2].IsValid();
     bool _result = _is_valid;
     if (_is_valid) {
+      IndicatorSignal _signals = _indi.GetSignals(4, _shift);
       switch (_cmd) {
         case ORDER_TYPE_BUY:
           // Buy: histogram is below zero and changes falling direction into rising (5 columns are taken).
           _result &= _indi[_shift + 2][0] < 0;
           _result &= _indi.IsIncreasing(2, 0, _shift);
           _result &= _indi.IsIncByPct(_level, 0, _shift, 2);
-          if (_result && _method != 0) {
-            if (METHOD(_method, 1)) _result &= _indi.IsDecreasing(2, 0, 3);
-          }
+          _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
           break;
         case ORDER_TYPE_SELL:
           // Sell: histogram is above zero and changes its rising direction into falling (5 columns are taken).
           _result &= _indi[_shift + 2][0] > 0;
           _result &= _indi.IsDecreasing(2, 0, _shift);
           _result &= _indi.IsDecByPct(-_level, 0, _shift, 2);
-          if (_result && _method != 0) {
-            if (METHOD(_method, 1)) _result &= _indi.IsIncreasing(2, 0, 3);
-          }
+          _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
           break;
       }
     }
