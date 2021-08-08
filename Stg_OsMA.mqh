@@ -11,6 +11,7 @@ INPUT float OsMA_SignalOpenLevel = 0.0f;     // Signal open level
 INPUT int OsMA_SignalOpenFilterMethod = 32;  // Signal open filter method
 INPUT int OsMA_SignalOpenBoostMethod = 0;    // Signal open boost method
 INPUT int OsMA_SignalCloseMethod = 2;        // Signal close method (-127-127)
+INPUT int OsMA_SignalCloseFilter = 0;        // Signal close filter (-127-127)
 INPUT float OsMA_SignalCloseLevel = 0.0f;    // Signal close level
 INPUT int OsMA_PriceStopMethod = 1;          // Price stop method
 INPUT float OsMA_PriceStopLevel = 0;         // Price stop level
@@ -38,9 +39,9 @@ struct Indi_OsMA_Params_Defaults : OsMAParams {
 struct Stg_OsMA_Params_Defaults : StgParams {
   Stg_OsMA_Params_Defaults()
       : StgParams(::OsMA_SignalOpenMethod, ::OsMA_SignalOpenFilterMethod, ::OsMA_SignalOpenLevel,
-                  ::OsMA_SignalOpenBoostMethod, ::OsMA_SignalCloseMethod, ::OsMA_SignalCloseLevel,
-                  ::OsMA_PriceStopMethod, ::OsMA_PriceStopLevel, ::OsMA_TickFilterMethod, ::OsMA_MaxSpread,
-                  ::OsMA_Shift, ::OsMA_OrderCloseTime) {}
+                  ::OsMA_SignalOpenBoostMethod, ::OsMA_SignalCloseMethod, ::OsMA_SignalCloseFilter,
+                  ::OsMA_SignalCloseLevel, ::OsMA_PriceStopMethod, ::OsMA_PriceStopLevel, ::OsMA_TickFilterMethod,
+                  ::OsMA_MaxSpread, ::OsMA_Shift, ::OsMA_OrderCloseTime) {}
 } stg_osma_defaults;
 
 // Struct to define strategy parameters to override.
