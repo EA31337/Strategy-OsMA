@@ -9,6 +9,7 @@ INPUT float OsMA_LotSize = 0;                // Lot size
 INPUT int OsMA_SignalOpenMethod = 2;         // Signal open method (-127-127)
 INPUT float OsMA_SignalOpenLevel = 0.0f;     // Signal open level
 INPUT int OsMA_SignalOpenFilterMethod = 32;  // Signal open filter method
+INPUT int OsMA_SignalOpenFilterTime = 6;     // Signal open filter time
 INPUT int OsMA_SignalOpenBoostMethod = 0;    // Signal open boost method
 INPUT int OsMA_SignalCloseMethod = 2;        // Signal close method (-127-127)
 INPUT int OsMA_SignalCloseFilter = 0;        // Signal close filter (-127-127)
@@ -47,6 +48,7 @@ struct Stg_OsMA_Params_Defaults : StgParams {
     Set(STRAT_PARAM_OCL, OsMA_OrderCloseLoss);
     Set(STRAT_PARAM_OCP, OsMA_OrderCloseProfit);
     Set(STRAT_PARAM_OCT, OsMA_OrderCloseTime);
+    Set(STRAT_PARAM_SOFT, OsMA_SignalOpenFilterTime);
   }
 } stg_osma_defaults;
 
