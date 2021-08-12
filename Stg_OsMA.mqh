@@ -7,14 +7,14 @@
 INPUT_GROUP("OsMA strategy: strategy params");
 INPUT float OsMA_LotSize = 0;                // Lot size
 INPUT int OsMA_SignalOpenMethod = 2;         // Signal open method (-127-127)
-INPUT float OsMA_SignalOpenLevel = 0.0f;     // Signal open level
+INPUT float OsMA_SignalOpenLevel = 100.0f;   // Signal open level
 INPUT int OsMA_SignalOpenFilterMethod = 32;  // Signal open filter method
 INPUT int OsMA_SignalOpenFilterTime = 6;     // Signal open filter time
 INPUT int OsMA_SignalOpenBoostMethod = 0;    // Signal open boost method
 INPUT int OsMA_SignalCloseMethod = 2;        // Signal close method (-127-127)
-INPUT int OsMA_SignalCloseFilter = 0;        // Signal close filter (-127-127)
-INPUT float OsMA_SignalCloseLevel = 0.0f;    // Signal close level
-INPUT int OsMA_PriceStopMethod = 1;          // Price stop method
+INPUT int OsMA_SignalCloseFilter = 2;        // Signal close filter (-127-127)
+INPUT float OsMA_SignalCloseLevel = 100.0f;  // Signal close level
+INPUT int OsMA_PriceStopMethod = 1;          // Price stop method (0-127)
 INPUT float OsMA_PriceStopLevel = 0;         // Price stop level
 INPUT int OsMA_TickFilterMethod = 1;         // Tick filter method
 INPUT float OsMA_MaxSpread = 4.0;            // Max spread to trade (pips)
@@ -23,11 +23,11 @@ INPUT float OsMA_OrderCloseLoss = 0;         // Order close loss
 INPUT float OsMA_OrderCloseProfit = 0;       // Order close profit
 INPUT int OsMA_OrderCloseTime = -20;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("OsMA strategy: OsMA indicator params");
-INPUT int OsMA_Indi_OsMA_Period_Fast = 8;                                       // Period fast
-INPUT int OsMA_Indi_OsMA_Period_Slow = 20;                                      // Period slow
-INPUT int OsMA_Indi_OsMA_Period_Signal = 14;                                    // Period signal
-INPUT ENUM_APPLIED_PRICE OsMA_Indi_OsMA_Applied_Price = (ENUM_APPLIED_PRICE)4;  // Applied price
-INPUT int OsMA_Indi_OsMA_Shift = 0;                                             // Shift
+INPUT int OsMA_Indi_OsMA_Period_Fast = 14;                           // Period fast
+INPUT int OsMA_Indi_OsMA_Period_Slow = 30;                           // Period slow
+INPUT int OsMA_Indi_OsMA_Period_Signal = 12;                         // Period signal
+INPUT ENUM_APPLIED_PRICE OsMA_Indi_OsMA_Applied_Price = PRICE_OPEN;  // Applied price
+INPUT int OsMA_Indi_OsMA_Shift = 0;                                  // Shift
 
 // Structs.
 
@@ -104,7 +104,8 @@ class Stg_OsMA : public Strategy {
    */
   bool SignalOpen(ENUM_ORDER_TYPE _cmd, int _method = 0, float _level = 0.0f, int _shift = 0) {
     Indi_OsMA *_indi = GetIndicator();
-    bool _result = _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID);
+    bool _result =
+        _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID, _shift) && _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID, _shift + 1);
     if (!_result) {
       // Returns false when indicator data is not valid.
       return false;
