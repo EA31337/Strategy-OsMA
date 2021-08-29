@@ -45,6 +45,7 @@ struct Stg_OsMA_Params_Defaults : StgParams {
                   ::OsMA_SignalOpenBoostMethod, ::OsMA_SignalCloseMethod, ::OsMA_SignalCloseFilter,
                   ::OsMA_SignalCloseLevel, ::OsMA_PriceStopMethod, ::OsMA_PriceStopLevel, ::OsMA_TickFilterMethod,
                   ::OsMA_MaxSpread, ::OsMA_Shift) {
+    Set(STRAT_PARAM_LS, OsMA_LotSize);
     Set(STRAT_PARAM_OCL, OsMA_OrderCloseLoss);
     Set(STRAT_PARAM_OCP, OsMA_OrderCloseProfit);
     Set(STRAT_PARAM_OCT, OsMA_OrderCloseTime);
