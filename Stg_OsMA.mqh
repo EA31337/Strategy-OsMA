@@ -19,8 +19,8 @@ INPUT float OsMA_PriceStopLevel = 2;         // Price stop level
 INPUT int OsMA_TickFilterMethod = 32;        // Tick filter method
 INPUT float OsMA_MaxSpread = 4.0;            // Max spread to trade (pips)
 INPUT short OsMA_Shift = 0;                  // Shift
-INPUT float OsMA_OrderCloseLoss = 0;         // Order close loss
-INPUT float OsMA_OrderCloseProfit = 0;       // Order close profit
+INPUT float OsMA_OrderCloseLoss = 80;        // Order close loss
+INPUT float OsMA_OrderCloseProfit = 80;      // Order close profit
 INPUT int OsMA_OrderCloseTime = -30;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("OsMA strategy: OsMA indicator params");
 INPUT int OsMA_Indi_OsMA_Period_Fast = 14;                           // Period fast
