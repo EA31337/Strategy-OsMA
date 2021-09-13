@@ -36,7 +36,7 @@ struct Indi_OsMA_Params_Defaults : OsMAParams {
   Indi_OsMA_Params_Defaults()
       : OsMAParams(::OsMA_Indi_OsMA_Period_Fast, ::OsMA_Indi_OsMA_Period_Slow, ::OsMA_Indi_OsMA_Period_Signal,
                    ::OsMA_Indi_OsMA_Applied_Price, ::OsMA_Indi_OsMA_Shift) {}
-} indi_osma_defaults;
+};
 
 // Defines struct with default user strategy values.
 struct Stg_OsMA_Params_Defaults : StgParams {
@@ -51,7 +51,7 @@ struct Stg_OsMA_Params_Defaults : StgParams {
     Set(STRAT_PARAM_OCT, OsMA_OrderCloseTime);
     Set(STRAT_PARAM_SOFT, OsMA_SignalOpenFilterTime);
   }
-} stg_osma_defaults;
+};
 
 #ifdef __config__
 // Loads pair specific param values.
@@ -71,7 +71,9 @@ class Stg_OsMA : public Strategy {
 
   static Stg_OsMA *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
+    Indi_OsMA_Params_Defaults indi_osma_defaults;
     OsMAParams _indi_params(indi_osma_defaults, _tf);
+    Stg_OsMA_Params_Defaults stg_osma_defaults;
     StgParams _stg_params(stg_osma_defaults);
 #ifdef __config__
     SetParamsByTf<OsMAParams>(_indi_params, _tf, indi_osma_m1, indi_osma_m5, indi_osma_m15, indi_osma_m30, indi_osma_h1,
