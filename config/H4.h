@@ -4,8 +4,8 @@
  */
 
 // Defines indicator's parameter values for the given pair symbol and timeframe.
-struct Indi_OsMA_Params_H4 : OsMAParams {
-  Indi_OsMA_Params_H4() : OsMAParams(indi_osma_defaults, PERIOD_H4) {
+struct Indi_OsMA_Params_H4 : OsIndiMAParams {
+  Indi_OsMA_Params_H4() : OsIndiMAParams(indi_osma_defaults, PERIOD_H4) {
     applied_price = (ENUM_APPLIED_PRICE)1;
     ema_fast_period = 10;
     ema_slow_period = 30;
