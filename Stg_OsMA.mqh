@@ -32,9 +32,9 @@ INPUT int OsMA_Indi_OsMA_Shift = 0;                                  // Shift
 // Structs.
 
 // Defines struct with default user indicator values.
-struct Indi_OsMA_Params_Defaults : OsIndiMAParams {
+struct Indi_OsMA_Params_Defaults : IndiOsMAParams {
   Indi_OsMA_Params_Defaults()
-      : OsIndiMAParams(::OsMA_Indi_OsMA_Period_Fast, ::OsMA_Indi_OsMA_Period_Slow, ::OsMA_Indi_OsMA_Period_Signal,
+      : IndiOsMAParams(::OsMA_Indi_OsMA_Period_Fast, ::OsMA_Indi_OsMA_Period_Slow, ::OsMA_Indi_OsMA_Period_Signal,
                        ::OsMA_Indi_OsMA_Applied_Price, ::OsMA_Indi_OsMA_Shift) {}
 };
 
@@ -72,11 +72,11 @@ class Stg_OsMA : public Strategy {
   static Stg_OsMA *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
     Indi_OsMA_Params_Defaults indi_osma_defaults;
-    OsIndiMAParams _indi_params(indi_osma_defaults, _tf);
+    IndiOsMAParams _indi_params(indi_osma_defaults, _tf);
     Stg_OsMA_Params_Defaults stg_osma_defaults;
     StgParams _stg_params(stg_osma_defaults);
 #ifdef __config__
-    SetParamsByTf<OsIndiMAParams>(_indi_params, _tf, indi_osma_m1, indi_osma_m5, indi_osma_m15, indi_osma_m30,
+    SetParamsByTf<IndiOsMAParams>(_indi_params, _tf, indi_osma_m1, indi_osma_m5, indi_osma_m15, indi_osma_m30,
                                   indi_osma_h1, indi_osma_h4, indi_osma_h8);
     SetParamsByTf<StgParams>(_stg_params, _tf, stg_osma_m1, stg_osma_m5, stg_osma_m15, stg_osma_m30, stg_osma_h1,
                              stg_osma_h4, stg_osma_h8);
