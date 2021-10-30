@@ -31,13 +31,6 @@ INPUT int OsMA_Indi_OsMA_Shift = 0;                                  // Shift
 
 // Structs.
 
-// Defines struct with default user indicator values.
-struct Indi_OsMA_Params_Defaults : IndiOsMAParams {
-  Indi_OsMA_Params_Defaults()
-      : IndiOsMAParams(::OsMA_Indi_OsMA_Period_Fast, ::OsMA_Indi_OsMA_Period_Slow, ::OsMA_Indi_OsMA_Period_Signal,
-                       ::OsMA_Indi_OsMA_Applied_Price, ::OsMA_Indi_OsMA_Shift) {}
-};
-
 // Defines struct with default user strategy values.
 struct Stg_OsMA_Params_Defaults : StgParams {
   Stg_OsMA_Params_Defaults()
@@ -89,8 +82,9 @@ class Stg_OsMA : public Strategy {
    * Event on strategy's init.
    */
   void OnInit() {
-    Indi_OsMA_Params_Defaults indi_osma_defaults;
-    IndiOsMAParams _indi_params(indi_osma_defaults, Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
+    IndiOsMAParams _indi_params(::OsMA_Indi_OsMA_Period_Fast, ::OsMA_Indi_OsMA_Period_Slow,
+                                ::OsMA_Indi_OsMA_Period_Signal, ::OsMA_Indi_OsMA_Applied_Price, ::OsMA_Indi_OsMA_Shift);
+    _indi_params.SetTf(Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
     SetIndicator(new Indi_OsMA(_indi_params));
   }
 
