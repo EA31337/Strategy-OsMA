@@ -71,13 +71,9 @@ class Stg_OsMA : public Strategy {
 
   static Stg_OsMA *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
-    Indi_OsMA_Params_Defaults indi_osma_defaults;
-    IndiOsMAParams _indi_params(indi_osma_defaults, _tf);
     Stg_OsMA_Params_Defaults stg_osma_defaults;
     StgParams _stg_params(stg_osma_defaults);
 #ifdef __config__
-    SetParamsByTf<IndiOsMAParams>(_indi_params, _tf, indi_osma_m1, indi_osma_m5, indi_osma_m15, indi_osma_m30,
-                                  indi_osma_h1, indi_osma_h4, indi_osma_h8);
     SetParamsByTf<StgParams>(_stg_params, _tf, stg_osma_m1, stg_osma_m5, stg_osma_m15, stg_osma_m30, stg_osma_h1,
                              stg_osma_h4, stg_osma_h8);
 #endif
@@ -86,8 +82,16 @@ class Stg_OsMA : public Strategy {
     ChartParams _cparams(_tf, _Symbol);
     TradeParams _tparams;
     Strategy *_strat = new Stg_OsMA(_stg_params, _tparams, _cparams, "OsMA");
-    _strat.SetIndicator(new Indi_OsMA(_indi_params));
     return _strat;
+  }
+
+  /**
+   * Event on strategy's init.
+   */
+  void OnInit() {
+    Indi_OsMA_Params_Defaults indi_osma_defaults;
+    IndiOsMAParams _indi_params(indi_osma_defaults, Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
+    SetIndicator(new Indi_OsMA(_indi_params));
   }
 
   /**
