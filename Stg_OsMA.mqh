@@ -62,7 +62,7 @@ class Stg_OsMA : public Strategy {
   Stg_OsMA(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
       : Strategy(_sparams, _tparams, _cparams, _name) {}
 
-  static Stg_OsMA *Init(ENUM_TIMEFRAMES _tf = NULL) {
+  static Stg_OsMA *Init(ENUM_TIMEFRAMES _tf = NULL, EA* _ea = NULL) {
     // Initialize strategy initial values.
     Stg_OsMA_Params_Defaults stg_osma_defaults;
     StgParams _stg_params(stg_osma_defaults);
